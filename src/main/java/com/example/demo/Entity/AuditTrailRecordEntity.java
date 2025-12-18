@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import org.springframework.stereotype.Indexed;
 
 @Entity
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 public class AuditTrailRecordEntity {
 
     @Id
