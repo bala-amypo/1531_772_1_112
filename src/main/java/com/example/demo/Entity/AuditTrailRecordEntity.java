@@ -1,19 +1,16 @@
 package com.example.demo.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
-import java.time.LocalDateTime;
 import jakarta.persistence.Id;
-import org.springframework.stereotype.Indexed;
+import java.time.LocalDateTime;
 
 @Entity
-@GeneratedValue(strategy = GenerationType.IDENTITY)
 public class AuditTrailRecordEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String actionType;
@@ -22,7 +19,7 @@ public class AuditTrailRecordEntity {
     private String changedBy;
     private LocalDateTime timestamp;
 
-    // Constructors
+    
     public AuditTrailRecordEntity() {
     }
 
@@ -83,6 +80,5 @@ public class AuditTrailRecordEntity {
     }
 
     public AuditTrailRecordEntity() {
-    } 
-    
+    }
 }
