@@ -8,22 +8,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Controller.AuthController.AuthEntity;
-import com.example.demo.Service.AuthService;
+import com.example.demo.Entity.UserEntity;
+import com.example.demo.Service.UserService;
 
 @RestController
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private UserService userService;
 
-    @PostMapping("/addauth")
-    public AuthEntity addAuth(@RequestBody AuthEntity authEntity) {
-        return authService.createAuth(authEntity);
+    
+    @PostMapping("/addUser")
+    public UserEntity addUser(@RequestBody UserEntity userEntity) {
+        return userService.createUser(userEntity);
     }
 
-    @GetMapping("/showauth")
-    public List<AuthEntity> getAllAuths() {
-        return authService.getAllAuths();
+    
+    @GetMapping("/showUser")
+    public List<UserEntity> getAllUsers() {
+        return userService.getAllUsers();
     }
 }
+
