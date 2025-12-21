@@ -29,9 +29,6 @@ public class UserEntity {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
-
-
-
     public UserEntity() {
     }
 
