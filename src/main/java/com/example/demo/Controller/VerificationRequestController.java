@@ -17,13 +17,15 @@ public class VerificationRequestController {
     @Autowired
     private VerificationRequestService verificationRequestService;
 
+    // POST: Add new verification request
     @PostMapping("/addverificationrequest")
     public VerificationRequestEntity addVerificationRequest(
-            @RequestBody VerificationRequestController verificationRequest) {
+            @RequestBody VerificationRequestEntity verificationRequest) {
 
         return verificationRequestService.createVerificationRequest(verificationRequest);
     }
 
+    // GET: Fetch all verification requests
     @GetMapping("/showverificationrequests")
     public List<VerificationRequestEntity> getAllVerificationRequests() {
 
