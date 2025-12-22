@@ -19,11 +19,11 @@ public class CredentialRecordEntity {
     private LocalDateTime issuedAt;
     private LocalDateTime expiryAt;
 
-    // No-argument constructor
+    
     public CredentialRecordEntity() {
     }
 
-    // Parameterized constructor
+    
     public CredentialRecordEntity(Long id, String credentialType, String credentialValue,
                                   String issuedBy, LocalDateTime issuedAt, LocalDateTime expiryAt) {
         this.id = id;
@@ -34,7 +34,7 @@ public class CredentialRecordEntity {
         this.expiryAt = expiryAt;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

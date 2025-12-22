@@ -17,7 +17,7 @@ public class VerificationRuleController {
     @Autowired
     private VerificationRuleService verificationRuleService;
 
-    // Add a new verification rule
+    
     @PostMapping("/addverificationrule")
     public VerificationRuleEntity addVerificationRule(
             @RequestBody VerificationRuleEntity verificationRuleEntity) {
@@ -25,7 +25,7 @@ public class VerificationRuleController {
         return verificationRuleService.createVerificationRule(verificationRuleEntity);
     }
 
-    // Get all verification rules
+    
     @GetMapping("/showverificationrules")
     public List<VerificationRuleEntity> getAllVerificationRules() {
 

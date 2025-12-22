@@ -15,19 +15,19 @@
  public class AuditTrailController {
 
      @Autowired
-         private AuditTrailService auditTrailService;
+     private AuditTrailService auditTrailService;
 
-             @PostMapping("/addaudittrail")
-                 public AuditTrailRecordEntity addAuditTrail(
-                             @RequestBody AuditTrailRecordEntity auditTrailRecord) {
+        @PostMapping("/addaudittrail")
+        public AuditTrailRecordEntity addAuditTrail(
+             @RequestBody AuditTrailRecordEntity auditTrailRecord) {
 
-                                     return auditTrailService.createAuditTrail(auditTrailRecord);
-                                         }
+             return auditTrailService.createAuditTrail(auditTrailRecord);
+            }
 
-                                             @GetMapping("/showaudittrail")
-                                                 public List<AuditTrailRecordEntity> getAllAuditTrails() {
+            @GetMapping("/showaudittrail")
+            public List<AuditTrailRecordEntity> getAllAuditTrails() {
 
-                                                         return auditTrailService.getAllAuditTrails();
-                                                             }
-                                                             }
+            return auditTrailService.getAllAuditTrails();
+        }
+}
                                                              
