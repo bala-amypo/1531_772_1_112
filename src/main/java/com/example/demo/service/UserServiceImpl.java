@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.example.demo.entity.UserEntity;
+import com.example.demo.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,22 +24,22 @@ public class UserServiceImpl implements UserService {
         return userRepo.findAll();
     }
 
-    
+    @Override
     public UserEntity getUserById(Long id) {
         return userRepo.findById(id).orElse(null);
     }
 
-    
+    @Override
     public UserEntity getUserByUsername(String username) {
         return userRepo.findByUsername(username).orElse(null);
     }
 
-    
+    @Override
     public UserEntity getUserByEmail(String email) {
         return userRepo.findByEmail(email).orElse(null);
     }
 
-    
+    @Override
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
     }
