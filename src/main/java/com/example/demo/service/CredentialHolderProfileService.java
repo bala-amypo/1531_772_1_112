@@ -1,13 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.CredentialHolderProfile;
 import java.util.List;
 
-import com.example.demo.Entity.CredentialHolderProfileEntity;
-
 public interface CredentialHolderProfileService {
-
-    CredentialHolderProfileEntity createCredentialHolder(
-            CredentialHolderProfileEntity credentialHolderProfile);
-
-    List<CredentialHolderProfileEntity> getAllCredentialHolders();
+    CredentialHolderProfile createHolder(CredentialHolderProfile profile);
+    CredentialHolderProfile getHolderById(Long id);
+    CredentialHolderProfile updateStatus(Long id, boolean active);
 }
