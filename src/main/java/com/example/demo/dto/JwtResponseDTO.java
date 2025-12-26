@@ -1,14 +1,14 @@
 package com.example.demo.dto;
 
-public class LoginResponseDTO {
+public class JwtResponseDTO {
 
     private String token;
     private String message;
 
-    public LoginResponseDTO() {
+    public JwtResponseDTO() {
     }
 
-    public LoginResponseDTO(String token, String message) {
+    public JwtResponseDTO(String token, String message) {
         this.token = token;
         this.message = message;
     }
