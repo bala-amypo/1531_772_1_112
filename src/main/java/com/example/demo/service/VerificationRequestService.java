@@ -1,16 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.VerificationRequestEntity;
 import java.util.List;
-
-import com.example.demo.Controller.VerificationRequestController;
-import com.example.demo.Entity.VerificationRequestEntity;
 
 public interface VerificationRequestService {
 
-    VerificationRequestEntity createVerificationRequest(
-            VerificationRequestController verificationRequest);
+    VerificationRequestEntity createRequest(VerificationRequestEntity request);
 
-    List<VerificationRequestEntity> getAllVerificationRequests();
+    List<VerificationRequestEntity> getAllRequests();
 
-    VerificationRequestEntity createVerificationRequest(VerificationRequestEntity verificationRequest);
+    VerificationRequestEntity getRequestById(Long id);
 }
+
