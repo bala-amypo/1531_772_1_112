@@ -20,8 +20,3 @@ while True:
         except Exception as e:
             print(f"Error: {e}")
     time.sleep(0.5)
-
-    import os
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-print(BASE_DIR)
