@@ -1,34 +1,27 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.Entity.VerificationRequestEntity;
-import com.example.demo.Service.VerificationRequestService;
+import com.example.demo.entity.VerificationRequest;
+import com.example.demo.service.VerificationRequestService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/verification")
 public class VerificationRequestController {
 
-    @Autowired
-    private VerificationRequestService verificationRequestService;
+    private final VerificationRequestService verificationService;
 
-    // POST: Add new verification request
-    @PostMapping("/addverificationrequest")
-    public VerificationRequestEntity addVerificationRequest(
-            @RequestBody VerificationRequestEntity verificationRequest) {
-
-        return verificationRequestService.createVerificationRequest(verificationRequest);
+    public VerificationRequestController(VerificationRequestService verificationService) {
+        this.verificationService = verificationService;
     }
 
-    // GET: Fetch all verification requests
-    @GetMapping("/showverificationrequests")
-    public List<VerificationRequestEntity> getAllVerificationRequests() {
+    @PostMapping
+    public ResponseEntity<VerificationRequest> initiate(@RequestBody VerificationRequest request) {
+        return ResponseEntity.ok(verificationService.initiateVerification(request));
+    }
 
-        return verificationRequestService.getAllVerificationRequests();
+    @PutMapping("/{id}/process")
+    public ResponseEntity<VerificationRequest> process(@PathVariable Long id) {
+        return ResponseEntity.ok(verificationService.processVerification(id));
     }
 }

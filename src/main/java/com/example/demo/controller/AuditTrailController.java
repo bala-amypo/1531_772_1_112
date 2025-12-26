@@ -1,33 +1,28 @@
- package com.example.demo.controller;
+package com.example.demo.controller;
 
- import java.util.List;
+import com.example.demo.entity.AuditTrailRecord;
+import com.example.demo.service.AuditTrailService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.web.bind.annotation.GetMapping;
- import org.springframework.web.bind.annotation.PostMapping;
- import org.springframework.web.bind.annotation.RequestBody;
- import org.springframework.web.bind.annotation.RestController;
+@RestController
+@RequestMapping("/api/audit")
+public class AuditTrailController {
 
- import com.example.demo.Entity.AuditTrailRecordEntity;
- import com.example.demo.Service.AuditTrailService;
+    private final AuditTrailService auditService;
 
- @RestController
- public class AuditTrailController {
+    public AuditTrailController(AuditTrailService auditService) {
+        this.auditService = auditService;
+    }
 
-     @Autowired
-     private AuditTrailService auditTrailService;
+    @PostMapping
+    public ResponseEntity<AuditTrailRecord> log(@RequestBody AuditTrailRecord record) {
+        return ResponseEntity.ok(auditService.logEvent(record));
+    }
 
-        @PostMapping("/addaudittrail")
-        public AuditTrailRecordEntity addAuditTrail(
-             @RequestBody AuditTrailRecordEntity auditTrailRecord) {
-
-             return auditTrailService.createAuditTrail(auditTrailRecord);
-            }
-
-            @GetMapping("/showaudittrail")
-            public List<AuditTrailRecordEntity> getAllAuditTrails() {
-
-            return auditTrailService.getAllAuditTrails();
-        }
+    @GetMapping("/credential/{credentialId}")
+    public ResponseEntity<List<AuditTrailRecord>> getByCredential(@PathVariable Long credentialId) {
+        return ResponseEntity.ok(auditService.getLogsByCredential(credentialId));
+    }
 }
-                                                             
