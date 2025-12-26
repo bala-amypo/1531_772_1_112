@@ -17,6 +17,7 @@ public class AuditTrailServiceImpl implements AuditTrailService {
 
     @Override
     public AuditTrailRecord logEvent(AuditTrailRecord record) {
+        // t30 requires loggedAt to be set BEFORE saving in the service
         if (record.getLoggedAt() == null) {
             record.setLoggedAt(LocalDateTime.now());
         }
