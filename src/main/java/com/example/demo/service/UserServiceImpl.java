@@ -1,46 +1,36 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.entity.UserEntity;
+import com.example.demo.entity.User;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserRepository userRepo;
-
-    @Override
-    public UserEntity createUser(UserEntity user) {
-        return userRepo.save(user);
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
-        return userRepo.findAll();
+    public User registerUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new BadRequestException("Email already exists");
+        }
+        // Requirement: Encode password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override
-    public UserEntity getUserById(Long id) {
-        return userRepo.findById(id).orElse(null);
-    }
-
-    @Override
-    public UserEntity getUserByUsername(String username) {
-        return userRepo.findByUsername(username).orElse(null);
-    }
-
-    @Override
-    public UserEntity getUserByEmail(String email) {
-        return userRepo.findByEmail(email).orElse(null);
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        userRepo.deleteById(id);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }
