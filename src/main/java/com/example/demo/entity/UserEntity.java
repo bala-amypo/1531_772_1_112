@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "users")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Gener
+        @GeneratedValue(strategy = GenerationType.IDENTITY)    private Long id;}@Table(name = "users")public class UserEntity {   atedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 }
 
