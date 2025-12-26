@@ -4,7 +4,7 @@ import os
 import shutil
 import time
 
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SOURCE_DIR = os.path.join(BASE_DIR, "src", "test")
 DEST_DIR = "/home/coder/Workspace/test_saved"
 
@@ -20,3 +20,8 @@ while True:
         except Exception as e:
             print(f"Error: {e}")
     time.sleep(0.5)
+
+    import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+print(BASE_DIR)
