@@ -1,34 +1,22 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.Entity.VerificationRuleEntity;
-import com.example.demo.Service.VerificationRuleService;
+import com.example.demo.entity.VerificationRule;
+import com.example.demo.service.VerificationRuleService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/rules")
 public class VerificationRuleController {
 
-    @Autowired
-    private VerificationRuleService verificationRuleService;
+    private final VerificationRuleService ruleService;
 
-    
-    @PostMapping("/addverificationrule")
-    public VerificationRuleEntity addVerificationRule(
-            @RequestBody VerificationRuleEntity verificationRuleEntity) {
-
-        return verificationRuleService.createVerificationRule(verificationRuleEntity);
+    public VerificationRuleController(VerificationRuleService ruleService) {
+        this.ruleService = ruleService;
     }
 
-    
-    @GetMapping("/showverificationrules")
-    public List<VerificationRuleEntity> getAllVerificationRules() {
-
-        return verificationRuleService.getAllVerificationRules();
+    @PostMapping
+    public ResponseEntity<VerificationRule> create(@RequestBody VerificationRule rule) {
+        return ResponseEntity.ok(ruleService.createRule(rule));
     }
 }
