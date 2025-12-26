@@ -1,12 +1,13 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -14,24 +15,12 @@ public class UserEntity {
     private Long id;
 
     private String username;
-    
     private String email;
     private String password;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    private String role;
 
-
-    public UserEntity(Long id, String username, String email, String password, LocalDateTime createdDate, LocalDateTime updatedDate) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-    }
     public UserEntity() {
     }
-
 
     public Long getId() {
         return id;
@@ -65,19 +54,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public String getRole() {
+        return role;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setRole(String role) {
+        this.role = role;
     }
-
-    public LocalDateTime getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(LocalDateTime updatedDate) {
-        this.updatedDate = updatedDate;
-    }
 }
