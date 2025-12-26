@@ -38,6 +38,8 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
     public List<CredentialRecord> getCredentialsByHolder(Long holderId) {
         return credentialRepo.findByHolderId(holderId);
     }
+    // Inside CredentialRecordServiceImpl.java
+public CredentialRecordRepository getRepo() { return this.credentialRepo; }
 
     @Override
     public CredentialRecord getCredentialByCode(String code) {
