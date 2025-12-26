@@ -1,30 +1,26 @@
 package com.example.demo.dto;
 
-public class LoginResponseDTO {
+public class LoginRequestDTO {
 
-    private String token;
-    private String message;
+    private String username;
+    private String password;
 
-    public LoginResponseDTO() {}
-
-    public LoginResponseDTO(String token, String message) {
-        this.token = token;
-        this.message = message;
+    public LoginRequestDTO() {
     }
 
-    public String getToken() {
-        return token;
+    public String getUsername() {
+        return username;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMessage() {
-        return message;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
