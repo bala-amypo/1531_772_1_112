@@ -1,29 +1,26 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.entity.VerificationRule;
+import com.example.demo.repository.VerificationRuleRepository;
+import com.example.demo.service.VerificationRuleService;
 import org.springframework.stereotype.Service;
-
-import com.example.demo.Entity.VerificationRuleEntity;
-import com.example.demo.Repository.VerificationRuleRepository;
+import java.util.List;
 
 @Service
 public class VerificationRuleServiceImpl implements VerificationRuleService {
+    private final VerificationRuleRepository ruleRepo;
 
-    @Autowired
-    VerificationRuleRepository verificationRuleRepo;
-
-    @Override
-    public VerificationRuleEntity createVerificationRule(
-            VerificationRuleEntity verificationRuleEntity) {
-
-        return verificationRuleRepo.save(verificationRuleEntity);
+    public VerificationRuleServiceImpl(VerificationRuleRepository ruleRepo) {
+        this.ruleRepo = ruleRepo;
     }
 
     @Override
-    public List<VerificationRuleEntity> getAllVerificationRules() {
+    public VerificationRule createRule(VerificationRule rule) {
+        return ruleRepo.save(rule);
+    }
 
-        return verificationRuleRepo.findAll();
+    @Override
+    public List<VerificationRule> getActiveRules() {
+        return ruleRepo.findByActiveTrue();
     }
 }

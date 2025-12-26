@@ -1,30 +1,34 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.entity.CredentialHolderProfile;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.CredentialHolderProfileRepository;
+import com.example.demo.service.CredentialHolderProfileService;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.CredentialHolderProfileEntity;
-import com.example.demo.Repository.CredentialHolderProfileRepository;
-
 @Service
-public class CredentialHolderProfileServiceImpl
-        implements CredentialHolderProfileService {
+public class CredentialHolderProfileServiceImpl implements CredentialHolderProfileService {
+    private final CredentialHolderProfileRepository holderRepo;
 
-    @Autowired
-    CredentialHolderProfileRepository credentialHolderProfileRepo;
-
-    @Override
-    public CredentialHolderProfileEntity createCredentialHolder(
-            CredentialHolderProfileEntity credentialHolderProfile) {
-
-        return credentialHolderProfileRepo.save(credentialHolderProfile);
+    public CredentialHolderProfileServiceImpl(CredentialHolderProfileRepository holderRepo) {
+        this.holderRepo = holderRepo;
     }
 
     @Override
-    public List<CredentialHolderProfileEntity> getAllCredentialHolders() {
+    public CredentialHolderProfile createHolder(CredentialHolderProfile profile) {
+        return holderRepo.save(profile);
+    }
 
-        return credentialHolderProfileRepo.findAll();
+    @Override
+    public CredentialHolderProfile getHolderById(Long id) {
+        return holderRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Holder not found"));
+    }
+
+    @Override
+    public CredentialHolderProfile updateStatus(Long id, boolean active) {
+        CredentialHolderProfile profile = getHolderById(id);
+        profile.setActive(active);
+        return holderRepo.save(profile);
     }
 }

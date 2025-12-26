@@ -1,30 +1,46 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
+import com.example.demo.entity.CredentialRecord;
+import com.example.demo.repository.CredentialRecordRepository;
+import com.example.demo.service.CredentialRecordService;
+import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.Entity.CredentialRecordEntity;
-import com.example.demo.Repository.CredentialRecordRepository;
-
 @Service
-public class CredentialRecordServiceImpl
-        implements CredentialRecordService {
+public class CredentialRecordServiceImpl implements CredentialRecordService {
+    private final CredentialRecordRepository credentialRepo;
 
-    @Autowired
-    CredentialRecordRepository credentialRecordRepo;
-
-    @Override
-    public CredentialRecordEntity createCredentialRecord(
-            CredentialRecordEntity credentialRecord) {
-
-        return credentialRecordRepo.save(credentialRecord);
+    public CredentialRecordServiceImpl(CredentialRecordRepository credentialRepo) {
+        this.credentialRepo = credentialRepo;
     }
 
     @Override
-    public List<CredentialRecordEntity> getAllCredentialRecords() {
+    public CredentialRecord createCredential(CredentialRecord record) {
+        if (record.getExpiryDate() != null && record.getExpiryDate().isBefore(LocalDate.now())) {
+            record.setStatus("EXPIRED");
+        } else if (record.getStatus() == null) {
+            record.setStatus("VALID");
+        }
+        return credentialRepo.save(record);
+    }
 
-        return credentialRecordRepo.findAll();
+    @Override
+    public CredentialRecord updateCredential(Long id, CredentialRecord update) {
+        CredentialRecord existing = credentialRepo.findById(id).orElseThrow();
+        if (update.getCredentialCode() != null) {
+            existing.setCredentialCode(update.getCredentialCode());
+        }
+        return credentialRepo.save(existing);
+    }
+
+    @Override
+    public List<CredentialRecord> getCredentialsByHolder(Long holderId) {
+        return credentialRepo.findByHolderId(holderId);
+    }
+
+    @Override
+    public CredentialRecord getCredentialByCode(String code) {
+        return credentialRepo.findByCredentialCode(code).orElse(null);
     }
 }
